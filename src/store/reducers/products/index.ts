@@ -20,4 +20,5 @@ export const productsSlice = createSlice({
   },
 });
 export const { productsSelector } = productsSlice.selectors;
+
 export default productsSlice.reducer;
