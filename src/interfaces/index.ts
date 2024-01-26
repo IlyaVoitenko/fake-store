@@ -6,3 +6,6 @@ export interface Product {
   price: number;
   rating: { rate: number; count: number };
 }
+export interface ProductSliceInit {
+  listProducts: Product[];
+}
