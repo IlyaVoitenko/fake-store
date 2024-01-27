@@ -5,7 +5,8 @@ export interface Product {
   image: string;
   price: number;
   rating: { rate: number; count: number };
+  title: string;
 }
-export interface ProductSliceInit {
+export interface ProductsSliceInit {
   listProducts: Product[];
 }

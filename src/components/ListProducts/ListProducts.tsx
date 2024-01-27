@@ -4,6 +4,8 @@ import { productsSelector } from "../../store/reducers/products";
 import { getProductsThunk } from "../../store/thunk";
 import { AppDispatch } from "../../store";
 
+import ItemProduct from "../ItemProduct";
+
 const ListProducts = () => {
   const dispatch = useDispatch<AppDispatch>();
 
@@ -12,8 +14,14 @@ const ListProducts = () => {
   }, [dispatch]);
 
   const products = useSelector(productsSelector);
-  console.log(products);
-  return <div>ListProducts</div>;
+  return (
+    <div className="flex flex-wrap flex-row justify-around">
+      {products &&
+        products.map((item) => {
+          return <ItemProduct key={item.id} item={item} />;
+        })}
+    </div>
+  );
 };
 
 export default ListProducts;

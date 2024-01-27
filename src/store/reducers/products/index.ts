@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { ProductSliceInit } from "../../../interfaces";
+import { ProductsSliceInit } from "../../../interfaces";
 import { getProductsThunk } from "../../thunk";
 
-const initialState: ProductSliceInit = {
+const initialState: ProductsSliceInit = {
   listProducts: [],
 };
 
