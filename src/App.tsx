@@ -1,12 +1,12 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import Common from "./components/Common";
+import MainPage from "./pages/MainPage";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Common />} />
+        <Route path="/" element={<MainPage />} />
       </Routes>
     </BrowserRouter>
   );

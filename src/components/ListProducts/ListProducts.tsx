@@ -1,25 +1,19 @@
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { productsSelector } from "../../store/reducers/products";
-import { getProductsThunk } from "../../store/thunk";
-import { AppDispatch } from "../../store";
-
 import ItemProduct from "../ItemProduct";
+import { Product } from "../../interfaces";
 
-const ListProducts = () => {
-  const dispatch = useDispatch<AppDispatch>();
+interface Props {
+  arr: Product[];
+}
 
-  useEffect(() => {
-    dispatch(getProductsThunk());
-  }, [dispatch]);
-
-  const products = useSelector(productsSelector);
+const ListProducts = ({ arr }: Props) => {
   return (
-    <div className="flex flex-wrap flex-row justify-around">
-      {products &&
-        products.map((item) => {
-          return <ItemProduct key={item.id} item={item} />;
-        })}
+    <div className="flex flex-col justify-center items-center">
+      <div className="flex flex-row flex-wrap justify-around">
+        {arr &&
+          arr.map((item) => {
+            return <ItemProduct key={item.id} item={item} />;
+          })}
+      </div>
     </div>
   );
 };
