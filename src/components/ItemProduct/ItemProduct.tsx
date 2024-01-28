@@ -1,18 +1,26 @@
 import BtnLike from "./BtnLike/BtnLike";
 import { Product } from "../../interfaces";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../store";
+import { getProductByIdThunk } from "../../store/thunk";
 
 interface Props {
   item: Product;
 }
 
 const ItemProduct = ({ item }: Props) => {
-  const { rating, image, category, title, price } = item;
+  const dispatch = useDispatch<AppDispatch>();
+
+  const navigate = useNavigate();
+  const { rating, image, category, title, price, id } = item;
+
   return (
     <div className="relative min-h-screen flex flex-col items-center justify-center ">
       <div className="container">
         <div className="max-w-md w-full bg-gray-900 shadow-lg rounded-xl p-6">
           <div className="flex flex-col ">
-            <div className="">
+            <div>
               <div className="relative h-62 w-full mb-3">
                 <BtnLike />
                 <img
@@ -47,8 +55,16 @@ const ItemProduct = ({ item }: Props) => {
                   $ {price}
                 </div>
                 <div className="flex mt-5 space-x-2 text-sm font-medium justify-start">
-                  <button className="transition ease-in duration-300 inline-flex items-center text-sm font-medium mb-2 md:mb-0 bg-purple-500 px-5 py-2 hover:shadow-lg tracking-wider text-white rounded-full hover:bg-purple-600 ">
-                    <span>Buy</span>
+                  <button
+                    className="transition ease-in duration-300 inline-flex items-center text-sm font-medium mb-2 md:mb-0 bg-purple-500 px-5 py-2 hover:shadow-lg tracking-wider text-white rounded-full hover:bg-purple-600 "
+                    onClick={() => {
+                      typeof id === "number" &&
+                        dispatch(getProductByIdThunk(id));
+
+                      navigate(`/product/:${id}`);
+                    }}
+                  >
+                    Buy
                   </button>
                 </div>
               </div>
