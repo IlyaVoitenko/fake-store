@@ -25,7 +25,7 @@ const ItemProduct = ({ item }: Props) => {
                 <BtnLike />
                 <img
                   src={image}
-                  alt="Just a flower"
+                  alt={title}
                   className=" w-full h-[400px]  object-fill  rounded-2xl"
                 />
               </div>
