@@ -61,7 +61,7 @@ const ItemProduct = ({ item }: Props) => {
                       typeof id === "number" &&
                         dispatch(getProductByIdThunk(id));
 
-                      navigate(`/product/:${id}`);
+                      navigate(`/product`);
                     }}
                   >
                     Buy

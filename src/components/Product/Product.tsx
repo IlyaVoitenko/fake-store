@@ -1,6 +1,7 @@
 import { useSelector } from "react-redux";
 import { productSelector } from "../../store/reducers/products";
 import { useNavigate } from "react-router-dom";
+
 const Product = () => {
   const navigate = useNavigate();
   const product = useSelector(productSelector);
