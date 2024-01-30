@@ -10,4 +10,5 @@ export interface Product {
 export interface ProductsSliceInit {
   listProducts: Product[];
   product: Product;
+  isLoading: boolean;
 }

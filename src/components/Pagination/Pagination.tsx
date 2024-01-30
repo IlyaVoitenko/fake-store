@@ -10,6 +10,8 @@ interface Props {
 const Pagination = ({ arr }: Props) => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const countItemsPage = 6;
+  if (!arr) return;
+
   const totalPages = Math.ceil(arr.length / countItemsPage);
   const countMaxItemsPage = currentPage * countItemsPage;
   const countMinItemsPage = countMaxItemsPage - countItemsPage;
