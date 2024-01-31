@@ -3,11 +3,9 @@ import {
   productSelector,
   isLoadingSelector,
 } from "../../store/reducers/products";
-import { useNavigate } from "react-router-dom";
 import Loading from "../Loading";
 
 const Product = () => {
-  const navigate = useNavigate();
   const product = useSelector(productSelector);
   const isLoading = useSelector(isLoadingSelector);
 
@@ -15,11 +13,8 @@ const Product = () => {
 
   const { image, description, category, title, rating, price } = product;
 
-  const goBack = () => navigate(-1);
-
   return (
     <>
-      <button onClick={() => goBack()}>Go back</button>
       <div className="relative min-h-screen flex flex-col items-center justify-center ">
         <div>
           <div className=" w-full p-6">
