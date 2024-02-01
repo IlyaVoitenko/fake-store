@@ -12,3 +12,14 @@ export interface ProductsSliceInit {
   product: Product;
   isLoading: boolean;
 }
+export interface FormLoginInit {
+  userName: string;
+  password: string;
+}
+export interface FormRegisterInit extends FormLoginInit {
+  firstName: string;
+  lastName: string;
+  email: string;
+}
+
+export type validateFunck = string | null;
