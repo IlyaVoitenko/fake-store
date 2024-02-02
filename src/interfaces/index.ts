@@ -10,10 +10,41 @@ export interface Product {
 export interface ProductsSliceInit {
   listProducts: Product[];
   product: Product;
-  isLoading: boolean;
+}
+export interface User {
+  id: number;
+  email: string;
+  username: string;
+  password: string;
+  name: {
+    firstname: string;
+    lastname: string;
+  };
+  address: {
+    city: string;
+    street: string;
+    number: number;
+    zipcode: string;
+    geolocation: {
+      lat: string;
+      long: string;
+    };
+  };
+  phone: string;
+}
+export interface errorMessageAuthUser {
+  status: number | null;
+  message: string | null;
+}
+export interface AuthSliceInit {
+  error: errorMessageAuthUser;
+  token: string | null;
+}
+export interface LoadingSliceInit {
+  loading: boolean;
 }
 export interface FormLoginInit {
-  userName: string;
+  username: string;
   password: string;
 }
 export interface FormRegisterInit extends FormLoginInit {

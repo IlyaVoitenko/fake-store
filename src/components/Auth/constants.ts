@@ -3,11 +3,11 @@ import { FormRegisterInit, FormLoginInit } from "../../interfaces";
 export const initialRegisterForm: FormRegisterInit = {
   firstName: "",
   lastName: "",
-  userName: "",
+  username: "",
   email: "",
   password: "",
 };
 export const initialLoginInForm: FormLoginInit = {
-  userName: "",
+  username: "",
   password: "",
 };

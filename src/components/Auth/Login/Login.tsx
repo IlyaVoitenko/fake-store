@@ -1,26 +1,39 @@
 import { Link } from "react-router-dom";
 import { initialLoginInForm } from "../constants";
+import { errorMessageSelector } from "../../../store/reducers/auth";
 import {
   validateUserName,
   validatePassword,
   handleSubmitLoginForm,
 } from "../../helpers";
 import { Formik, Form, Field } from "formik";
+import { AppDispatch } from "../../../store";
+import { useDispatch, useSelector } from "react-redux";
 
 const Login = () => {
+  const dispatch = useDispatch<AppDispatch>();
+  const errorMessage = useSelector(errorMessageSelector);
+
   return (
     <div className="flex md:w-1/2 justify-center py-10 items-center bg-white max-lg:w-full max-lg:h-screen">
       <Formik
         initialValues={initialLoginInForm}
-        onSubmit={handleSubmitLoginForm}
+        onSubmit={(values) => handleSubmitLoginForm(values, dispatch)}
       >
         {({ errors, touched }) => (
           <Form className="bg-white text-black">
             <h1 className="text-gray-800 font-bold text-2xl mb-1">Log in </h1>
-            {errors.userName && touched.userName && (
+            {errorMessage.status && (
+              <div className="flex text-center ">
+                <span className="bg-red-700 rounded-lg text-white pt-1 pb-1 w-full">
+                  {errorMessage.status} {errorMessage.message}
+                </span>
+              </div>
+            )}
+            {errors.username && touched.username && (
               <div className="flex text-center ">
                 <label className="bg-red-700 rounded-lg text-white pt-1 pb-1 w-full">
-                  Error :{errors.userName}
+                  Error :{errors.username}
                 </label>
               </div>
             )}
@@ -42,7 +55,7 @@ const Login = () => {
               <Field
                 className="pl-2 outline-none border-none bg-white"
                 type="text"
-                name="userName"
+                name="username"
                 placeholder="Username"
                 validate={validateUserName}
               />

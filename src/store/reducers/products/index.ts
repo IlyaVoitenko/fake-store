@@ -16,7 +16,6 @@ const initialState: ProductsSliceInit = {
     },
     title: "",
   },
-  isLoading: false,
 };
 
 export const productsSlice = createSlice({
@@ -26,26 +25,16 @@ export const productsSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(getProductsThunk.fulfilled, (state, { payload }) => {
       state.listProducts = payload;
-      state.isLoading = false;
-    });
-    builder.addCase(getProductsThunk.pending, (state) => {
-      state.isLoading = true;
     });
     builder.addCase(getProductByIdThunk.fulfilled, (state, { payload }) => {
       state.product = payload;
-      state.isLoading = false;
-    });
-    builder.addCase(getProductByIdThunk.pending, (state) => {
-      state.isLoading = true;
     });
   },
   selectors: {
     productsSelector: (state) => state.listProducts,
     productSelector: (state) => state.product,
-    isLoadingSelector: (state) => state.isLoading,
   },
 });
-export const { productsSelector, productSelector, isLoadingSelector } =
-  productsSlice.selectors;
+export const { productsSelector, productSelector } = productsSlice.selectors;
 
 export default productsSlice.reducer;

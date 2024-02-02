@@ -3,14 +3,19 @@ import {
   validateFunck,
   FormLoginInit,
 } from "../../interfaces";
+import { AppDispatch } from "../../store";
+import { getAuthTokenThunk } from "../../store/thunk";
 
 export const handleSubmitRegisterForm = (values: FormRegisterInit) => {
   console.log("values:", values);
 };
-export const handleSubmitLoginForm = (values: FormLoginInit) => {
-  console.log("values:", values);
+export const handleSubmitLoginForm = (
+  values: FormLoginInit,
+  dispatch: AppDispatch
+) => {
+  const { username, password } = values;
+  dispatch(getAuthTokenThunk({ username, password }));
 };
-
 export const validateEmail = (value: string): validateFunck => {
   let errorMsg = null;
   if (!value) errorMsg = "Required";
@@ -30,8 +35,8 @@ export const validateUserName = (username: string): validateFunck => {
 };
 export const validatePassword = (password: string): validateFunck => {
   let errorMsg = null;
-  if (password.length < 8)
-    return (errorMsg = "Password must be at least 8 characters long.");
+  if (password.length < 6)
+    return (errorMsg = "Password must be at least 6 characters long.");
   if (!/\d/.test(password))
     return (errorMsg = "Password must contain at least one digit.");
   if (!/[a-zA-Z]/.test(password))

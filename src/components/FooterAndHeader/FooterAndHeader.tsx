@@ -2,7 +2,7 @@ import { Outlet } from "react-router-dom";
 import Footer from "../Footer";
 import NavBar from "../NavBar";
 import { useSelector } from "react-redux";
-import { isLoadingSelector } from "../../store/reducers/products";
+import { isLoadingSelector } from "../../store/reducers/loading";
 
 const FooterAndHeader = () => {
   const isLoading = useSelector(isLoadingSelector);

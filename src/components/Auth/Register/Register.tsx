@@ -75,10 +75,10 @@ const Register = () => {
                 validate={validateName}
               />
             </div>
-            {errors.userName && touched.userName && (
+            {errors.username && touched.username && (
               <div className="flex text-center ">
                 <label className="bg-red-700 rounded-lg text-white pt-1 pb-1 w-full">
-                  Error :{errors.userName}
+                  Error :{errors.username}
                 </label>
               </div>
             )}
@@ -100,7 +100,7 @@ const Register = () => {
               <Field
                 className="pl-2 outline-none border-none bg-white"
                 type="text"
-                name="userName"
+                name="username"
                 placeholder="User name"
                 validate={validateUserName}
               />

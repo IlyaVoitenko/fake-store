@@ -1,8 +1,6 @@
 import { useSelector } from "react-redux";
-import {
-  productSelector,
-  isLoadingSelector,
-} from "../../store/reducers/products";
+import { productSelector } from "../../store/reducers/products";
+import { isLoadingSelector } from "../../store/reducers/loading";
 import Loading from "../Loading";
 
 const Product = () => {

@@ -1,4 +1,5 @@
 import axios, { AxiosResponse, isAxiosError } from "axios";
+import { FormLoginInit } from "../interfaces";
 
 export const getProducts = async () => {
   try {
@@ -7,9 +8,12 @@ export const getProducts = async () => {
     );
     return data;
   } catch (error) {
-    isAxiosError(error)
-      ? console.error("axios error :", error)
-      : console.error("general error :", error);
+    if (isAxiosError(error)) {
+      const { data, status } = error.response || {};
+      throw { status, message: data };
+    } else {
+      throw error;
+    }
   }
 };
 
@@ -20,8 +24,29 @@ export const getProductById = async (id: number) => {
     );
     return data;
   } catch (error) {
-    isAxiosError(error)
-      ? console.error("axios error :", error)
-      : console.error("general error :", error);
+    if (isAxiosError(error)) {
+      const { data, status } = error.response || {};
+      throw { status, message: data };
+    } else {
+      throw error;
+    }
+  }
+};
+
+export const getTokenUser = async (body: FormLoginInit) => {
+  try {
+    const { data }: AxiosResponse = await axios.post(
+      `https://fakestoreapi.com/auth/login`,
+      { ...body }
+    );
+    console.log("data==  ", data);
+    return data;
+  } catch (error) {
+    if (isAxiosError(error)) {
+      const { data, status } = error.response || {};
+      throw { status, message: data };
+    } else {
+      throw error;
+    }
   }
 };
