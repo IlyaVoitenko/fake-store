@@ -12,7 +12,7 @@ export interface ProductsSliceInit {
   product: Product;
 }
 export interface User {
-  id: number;
+  id?: number;
   email: string;
   username: string;
   password: string;
@@ -20,7 +20,7 @@ export interface User {
     firstname: string;
     lastname: string;
   };
-  address: {
+  address?: {
     city: string;
     street: string;
     number: number;
@@ -30,7 +30,7 @@ export interface User {
       long: string;
     };
   };
-  phone: string;
+  phone?: string;
 }
 export interface errorMessageAuthUser {
   status: number | null;
@@ -39,6 +39,8 @@ export interface errorMessageAuthUser {
 export interface AuthSliceInit {
   error: errorMessageAuthUser;
   token: string | null;
+  user: User | null;
+  isAddedNewUser: boolean;
 }
 export interface LoadingSliceInit {
   loading: boolean;

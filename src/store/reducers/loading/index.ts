@@ -1,6 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { LoadingSliceInit } from "../../../interfaces";
-import { getAuthTokenThunk, getProductsThunk } from "../../thunk";
+import {
+  getAuthTokenThunk,
+  getProductsThunk,
+  createUserThunk,
+} from "../../thunk";
 
 const initialState: LoadingSliceInit = {
   loading: false,
@@ -27,6 +31,15 @@ export const loadingSlice = createSlice({
       state.loading = !state.loading;
     });
     builder.addCase(getProductsThunk.rejected, (state) => {
+      state.loading = !state.loading;
+    });
+    builder.addCase(createUserThunk.fulfilled, (state) => {
+      state.loading = !state.loading;
+    });
+    builder.addCase(createUserThunk.pending, (state) => {
+      state.loading = !state.loading;
+    });
+    builder.addCase(createUserThunk.rejected, (state) => {
       state.loading = !state.loading;
     });
   },

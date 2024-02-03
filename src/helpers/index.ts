@@ -1,13 +1,16 @@
-import {
-  FormRegisterInit,
-  validateFunck,
-  FormLoginInit,
-} from "../../interfaces";
-import { AppDispatch } from "../../store";
-import { getAuthTokenThunk } from "../../store/thunk";
+import { NavigateFunction } from "react-router-dom";
+import { FormRegisterInit, validateFunck, FormLoginInit } from "../interfaces";
+import { AppDispatch } from "../store";
+import { getAuthTokenThunk, createUserThunk } from "../store/thunk";
 
-export const handleSubmitRegisterForm = (values: FormRegisterInit) => {
-  console.log("values:", values);
+export const handleSubmitRegisterForm = (
+  values: FormRegisterInit,
+  dispatch: AppDispatch,
+  isAddedNewUser: boolean,
+  navigate: NavigateFunction
+) => {
+  if (isAddedNewUser) return navigate("/");
+  dispatch(createUserThunk({ ...values }));
 };
 export const handleSubmitLoginForm = (
   values: FormLoginInit,

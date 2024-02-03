@@ -1,6 +1,18 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { getProducts, getProductById, getTokenUser } from "../../API";
-import { Product, FormLoginInit, AuthSliceInit } from "../../interfaces";
+import {
+  getProducts,
+  getProductById,
+  getTokenUser,
+  createNewUser,
+  getUserById,
+} from "../../API";
+import {
+  Product,
+  FormLoginInit,
+  AuthSliceInit,
+  FormRegisterInit,
+  User,
+} from "../../interfaces";
 
 export const getProductsThunk = createAsyncThunk<Product[]>(
   "products/getProductsThunk",
@@ -32,6 +44,20 @@ export const getAuthTokenThunk = createAsyncThunk<AuthSliceInit, FormLoginInit>(
     try {
       const data = await getTokenUser(body);
       return data;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);
+
+export const createUserThunk = createAsyncThunk<User, FormRegisterInit>(
+  "auth/createUserThunk",
+  async (newUserData, { rejectWithValue }) => {
+    try {
+      const { id: idNewUser } = await createNewUser(newUserData);
+      const newUser = await getUserById(idNewUser);
+
+      return newUser;
     } catch (error) {
       return rejectWithValue(error);
     }

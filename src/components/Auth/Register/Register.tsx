@@ -1,24 +1,56 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { initialRegisterForm } from "../constants";
+import {
+  errorMessageSelector,
+  isAddedNewUserSelector,
+  setIsAddedNewUser,
+} from "../../../store/reducers/auth";
 import {
   handleSubmitRegisterForm,
   validateEmail,
   validateUserName,
   validatePassword,
   validateName,
-} from "../../helpers";
+} from "../../../helpers";
 import { Formik, Form, Field } from "formik";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch } from "../../../store";
+import { useEffect } from "react";
 
 const Register = () => {
+  const dispatch = useDispatch<AppDispatch>();
+  const errorMessage = useSelector(errorMessageSelector);
+  const isAddedNewUser = useSelector(isAddedNewUserSelector);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    dispatch(setIsAddedNewUser(false));
+  }, [dispatch]);
   return (
     <div className="flex md:w-1/2 justify-center py-10 items-center bg-white max-lg:h-full">
       <Formik
         initialValues={initialRegisterForm}
-        onSubmit={handleSubmitRegisterForm}
+        onSubmit={(values) =>
+          handleSubmitRegisterForm(values, dispatch, isAddedNewUser, navigate)
+        }
       >
         {({ errors, touched }) => (
           <Form className="bg-white text-black">
             <h1 className="text-gray-800 font-bold text-2xl mb-1">Register</h1>
+            {isAddedNewUser && (
+              <div className="flex text-center ">
+                <span className="bg-green-700 rounded-lg text-white pt-1 pb-1 w-full">
+                  Register is successful
+                </span>
+              </div>
+            )}
+            {errorMessage.status && (
+              <div className="flex text-center ">
+                <span className="bg-red-700 rounded-lg text-white pt-1 pb-1 w-full">
+                  {errorMessage.status} {errorMessage.message}
+                </span>
+              </div>
+            )}
             {errors.firstName && touched.firstName && (
               <div className="flex text-center ">
                 <label className="bg-red-700 rounded-lg text-white pt-1 pb-1 w-full">
@@ -168,7 +200,7 @@ const Register = () => {
               type="submit"
               className="block w-full bg-indigo-600 mt-4 py-2 rounded-2xl text-white font-semibold mb-2"
             >
-              Create
+              {isAddedNewUser ? " Go main page !" : "Create user"}
             </button>
             <Link to={"/auth/login"}>
               <button
