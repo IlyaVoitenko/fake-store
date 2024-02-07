@@ -1,17 +1,16 @@
 import { NavigateFunction } from "react-router-dom";
-import { CardElement } from "@stripe/react-stripe-js";
-
 import {
   FormRegisterInit,
   validateFunck,
   FormLoginInit,
   StripeType,
   ElementsType,
+  IMessagePayment,
+  IsProcessing,
 } from "../interfaces";
 import { AppDispatch } from "../store";
 import { getAuthTokenThunk, createUserThunk } from "../store/thunk";
-import { FormEvent, SetStateAction } from "react";
-
+import { FormEvent } from "react";
 import axios from "axios";
 
 export const handleSubmitRegisterForm = (
@@ -72,50 +71,32 @@ export const handleSubmit = async (
   e: FormEvent<HTMLFormElement>,
   elements: ElementsType,
   stripe: StripeType,
-  setSuccess: {
-    (value: SetStateAction<boolean>): void;
-    (arg0: boolean): void;
-  }
+  setIsProcessing: IsProcessing,
+  setMessage: IMessagePayment
 ) => {
   e.preventDefault();
   if (!stripe || !elements) return;
+  setIsProcessing(true);
 
-  const cardElement = elements.getElement(CardElement);
+  const { error, paymentIntent } = await stripe.confirmPayment({
+    elements,
+    confirmParams: {
+      return_url: `${window.location.origin}/completion`,
+    },
+    redirect: "if_required",
+  });
 
-  if (!cardElement) return;
+  if (error) setMessage(error.message);
+  else if (paymentIntent && paymentIntent.status === "succeeded")
+    setMessage(`Payment status : ${paymentIntent.status}`);
+  else setMessage("Unexpected status");
 
-  try {
-    const { paymentMethod, error } = await stripe.createPaymentMethod({
-      type: "card",
-      card: cardElement,
-    });
+  setIsProcessing(false);
+};
 
-    if (!error) {
-      const { id } = paymentMethod;
-      console.log(import.meta.env.VITE_SERVER_URL_PAYMENT);
-      const response = await axios.post(
-        import.meta.env.VITE_SERVER_URL_PAYMENT,
-        {
-          amount: 1000,
-          id,
-        }
-      );
-      const { client_secret, payment_method } = response.data.data;
-      const { error } = await stripe.confirmCardPayment(
-        client_secret,
-        { payment_method },
-        { handleActions: false }
-      );
-      if (!error) {
-        console.log("Successful payment");
-        setSuccess(true);
-      } else {
-        console.log(error.message);
-      }
-    } else {
-      console.log(error.message);
-    }
-  } catch (error) {
-    console.log("Error", error);
-  }
+export const getSecretClient = async () => {
+  const { data } = await axios.post(
+    `${import.meta.env.VITE_SERVER_URL}/payment-intents`
+  );
+  return data.client_secret;
 };

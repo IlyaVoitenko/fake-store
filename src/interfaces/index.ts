@@ -1,4 +1,5 @@
 import { Stripe, StripeElements } from "@stripe/stripe-js";
+import { SetStateAction } from "react";
 
 export interface Product {
   category: string;
@@ -56,6 +57,18 @@ export interface FormRegisterInit extends FormLoginInit {
   lastName: string;
   email: string;
 }
+export interface IMessagePayment {
+  (value: SetStateAction<MessagePaymentType>): void;
+  (arg0: string | undefined | { error: { message: string } }): void;
+}
+export interface IsProcessing {
+  (value: SetStateAction<boolean>): void;
+  (arg0: boolean): void;
+}
+export type MessagePaymentType =
+  | string
+  | { error: { message: string } }
+  | undefined;
 export type StripeType = Stripe | null;
 export type ElementsType = StripeElements | null;
 export type validateFunck = string | null;
