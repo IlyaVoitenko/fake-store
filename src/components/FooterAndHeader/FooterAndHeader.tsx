@@ -9,7 +9,7 @@ const FooterAndHeader = () => {
   return (
     <>
       {!isLoading && <NavBar />}
-      <main>
+      <main className="h-screen w-screen">
         <Outlet />
       </main>
       {!isLoading && <Footer />}

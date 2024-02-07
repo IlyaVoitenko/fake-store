@@ -8,7 +8,6 @@ const Product = () => {
   const isLoading = useSelector(isLoadingSelector);
 
   if (isLoading) return <Loading />;
-
   const { image, description, category, title, rating, price } = product;
 
   return (

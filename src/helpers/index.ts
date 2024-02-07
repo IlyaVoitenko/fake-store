@@ -1,7 +1,18 @@
 import { NavigateFunction } from "react-router-dom";
-import { FormRegisterInit, validateFunck, FormLoginInit } from "../interfaces";
+import { CardElement } from "@stripe/react-stripe-js";
+
+import {
+  FormRegisterInit,
+  validateFunck,
+  FormLoginInit,
+  StripeType,
+  ElementsType,
+} from "../interfaces";
 import { AppDispatch } from "../store";
 import { getAuthTokenThunk, createUserThunk } from "../store/thunk";
+import { FormEvent, SetStateAction } from "react";
+
+import axios from "axios";
 
 export const handleSubmitRegisterForm = (
   values: FormRegisterInit,
@@ -55,4 +66,56 @@ export const validateName = (name: string): validateFunck => {
     return (errorMsg = "Last name can only contain letters and dashes.");
 
   return errorMsg;
+};
+
+export const handleSubmit = async (
+  e: FormEvent<HTMLFormElement>,
+  elements: ElementsType,
+  stripe: StripeType,
+  setSuccess: {
+    (value: SetStateAction<boolean>): void;
+    (arg0: boolean): void;
+  }
+) => {
+  e.preventDefault();
+  if (!stripe || !elements) return;
+
+  const cardElement = elements.getElement(CardElement);
+
+  if (!cardElement) return;
+
+  try {
+    const { paymentMethod, error } = await stripe.createPaymentMethod({
+      type: "card",
+      card: cardElement,
+    });
+
+    if (!error) {
+      const { id } = paymentMethod;
+      console.log(import.meta.env.VITE_SERVER_URL_PAYMENT);
+      const response = await axios.post(
+        import.meta.env.VITE_SERVER_URL_PAYMENT,
+        {
+          amount: 1000,
+          id,
+        }
+      );
+      const { client_secret, payment_method } = response.data.data;
+      const { error } = await stripe.confirmCardPayment(
+        client_secret,
+        { payment_method },
+        { handleActions: false }
+      );
+      if (!error) {
+        console.log("Successful payment");
+        setSuccess(true);
+      } else {
+        console.log(error.message);
+      }
+    } else {
+      console.log(error.message);
+    }
+  } catch (error) {
+    console.log("Error", error);
+  }
 };

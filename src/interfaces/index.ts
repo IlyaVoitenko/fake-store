@@ -1,3 +1,5 @@
+import { Stripe, StripeElements } from "@stripe/stripe-js";
+
 export interface Product {
   category: string;
   description: string;
@@ -54,5 +56,6 @@ export interface FormRegisterInit extends FormLoginInit {
   lastName: string;
   email: string;
 }
-
+export type StripeType = Stripe | null;
+export type ElementsType = StripeElements | null;
 export type validateFunck = string | null;
