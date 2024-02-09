@@ -7,6 +7,7 @@ import {
   ElementsType,
   IMessagePayment,
   IsProcessing,
+  Product,
 } from "../interfaces";
 import { AppDispatch } from "../store";
 import { getAuthTokenThunk, createUserThunk } from "../store/thunk";
@@ -94,9 +95,21 @@ export const handleSubmit = async (
   setIsProcessing(false);
 };
 
-export const getSecretClient = async () => {
+export const getSecretClient = async (product: Product) => {
+  const { price, id } = product;
+  if (!price || price === 0) throw new Error("Product not found");
+
+  const newPrice = Math.ceil(price);
   const { data } = await axios.post(
-    `${import.meta.env.VITE_SERVER_URL}/payment-intents`
+    `${import.meta.env.VITE_SERVER_URL}/payment-intents`,
+    {
+      amount: newPrice,
+      currency: "usd",
+      payment_method_types: ["card"],
+      metadata: {
+        order_id: id,
+      },
+    }
   );
   return data.client_secret;
 };

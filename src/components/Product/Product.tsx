@@ -1,4 +1,5 @@
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { productSelector } from "../../store/reducers/products";
 import { isLoadingSelector } from "../../store/reducers/loading";
 import Loading from "../Loading";
@@ -6,7 +7,7 @@ import Loading from "../Loading";
 const Product = () => {
   const product = useSelector(productSelector);
   const isLoading = useSelector(isLoadingSelector);
-
+  const navigate = useNavigate();
   if (isLoading) return <Loading />;
   const { image, description, category, title, rating, price } = product;
 
@@ -53,7 +54,7 @@ const Product = () => {
                   <div className="flex mt-5 space-x-2 text-sm font-medium justify-start">
                     <button
                       className="transition ease-in duration-300 inline-flex items-center text-sm font-medium mb-2 md:mb-0 bg-purple-500 px-5 py-2 hover:shadow-lg tracking-wider text-white rounded-full hover:bg-purple-600 "
-                      onClick={() => {}}
+                      onClick={() => navigate("/payment")}
                     >
                       Buy
                     </button>

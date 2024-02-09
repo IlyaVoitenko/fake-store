@@ -10,7 +10,6 @@ import { MessagePaymentType } from "../../../interfaces";
 export const PaymentForm = () => {
   const [message, setMessage] = useState<MessagePaymentType>("");
   const [isProcessing, setIsProcessing] = useState(false);
-
   const stripe = useStripe();
   const elements = useElements();
 
