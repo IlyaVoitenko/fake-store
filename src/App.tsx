@@ -8,6 +8,7 @@ import PageNotFound from "./pages/PageNotFound";
 import AuthPage from "./pages/AuthPage";
 import PaymentPage from "./pages/PaymentPage";
 import CompletionPage from "./pages/CompletionPage";
+import ErrorPage from "./pages/ErrorPage";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route index element={<MainPage />} />
           <Route path="product" element={<ProductPage />} />
           <Route path="*" element={<PageNotFound />} />
+          <Route path="error" element={<ErrorPage />} />
         </Route>
       </Routes>
     </BrowserRouter>

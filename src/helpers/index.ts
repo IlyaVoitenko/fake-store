@@ -95,21 +95,29 @@ export const handleSubmit = async (
   setIsProcessing(false);
 };
 
-export const getSecretClient = async (product: Product) => {
-  const { price, id } = product;
-  if (!price || price === 0) throw new Error("Product not found");
+export const getSecretClient = async (
+  product: Product,
+  navigate: NavigateFunction
+) => {
+  try {
+    const { price, id } = product;
+    if (!price || price === 0) throw new Error("Product not found");
 
-  const newPrice = Math.ceil(price);
-  const { data } = await axios.post(
-    `${import.meta.env.VITE_SERVER_URL}/payment-intents`,
-    {
-      amount: newPrice,
-      currency: "usd",
-      payment_method_types: ["card"],
-      metadata: {
-        order_id: id,
-      },
-    }
-  );
-  return data.client_secret;
+    const newPrice = Math.ceil(price);
+    const { data } = await axios.post(
+      `${import.meta.env.VITE_SERVER_URL}/payment-intents`,
+      {
+        amount: newPrice,
+        currency: "usd",
+        payment_method_types: ["card"],
+        metadata: {
+          order_id: id,
+        },
+      }
+    );
+    return data.client_secret;
+  } catch (error) {
+    navigate("/error");
+    throw Error("Server is error ");
+  }
 };
