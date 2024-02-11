@@ -18,11 +18,11 @@ const Product = () => {
           <div className=" w-full p-6">
             <div>
               <div className="flex flex-row  max-lg:flex-col">
-                <div className="relative h-62 w-full ">
+                <div className="relative h-62 w-full  flex justify-center items-center ">
                   <img
                     src={image}
                     alt={title}
-                    className=" w-full h-[400px]  object-fill  rounded-2xl"
+                    className=" w-full h-[400px] max-sm:w-[80%]  object-fill  rounded-2xl"
                   />
                 </div>
                 <div className="flex flex-col justify-center  ml-3 max-lg:mt-3">
@@ -42,8 +42,8 @@ const Product = () => {
                       <span className="mr-2 text-gray-400 ">{category}</span>
                     </div>
                     <div className="flex items-center w-full justify-between min-w-0 flex-col">
-                      <h2 className="text-lg mr-auto cursor-pointer text-gray-200 hover:text-purple-500 truncate ">
-                        {title}
+                      <h2 className="text-lg  max-md:text-[0.8rem] mr-auto cursor-pointer text-gray-200 hover:text-purple-500 truncate ">
+                        {title}22
                       </h2>
                       <h2 className="mt-2">{description}</h2>
                     </div>
