@@ -4,6 +4,7 @@ import {
   errorMessageSelector,
   isAddedNewUserSelector,
   setIsAddedNewUser,
+  setErrorMessage,
 } from "../../../store/reducers/auth";
 import {
   handleSubmitRegisterForm,
@@ -25,6 +26,12 @@ const Register = () => {
 
   useEffect(() => {
     dispatch(setIsAddedNewUser(false));
+    dispatch(
+      setErrorMessage({
+        status: null,
+        message: null,
+      })
+    );
   }, [dispatch]);
   return (
     <div className="flex md:w-1/2 justify-center py-10 items-center bg-white max-lg:h-full">

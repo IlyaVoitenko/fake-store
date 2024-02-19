@@ -1,6 +1,9 @@
 import { Link } from "react-router-dom";
 import { initialLoginInForm } from "../constants";
-import { errorMessageSelector } from "../../../store/reducers/auth";
+import {
+  errorMessageSelector,
+  setErrorMessage,
+} from "../../../store/reducers/auth";
 import {
   validateUserName,
   validatePassword,
@@ -9,11 +12,20 @@ import {
 import { Formik, Form, Field } from "formik";
 import { AppDispatch } from "../../../store";
 import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
 
 const Login = () => {
   const dispatch = useDispatch<AppDispatch>();
   const errorMessage = useSelector(errorMessageSelector);
 
+  useEffect(() => {
+    dispatch(
+      setErrorMessage({
+        status: null,
+        message: null,
+      })
+    );
+  }, [dispatch]);
   return (
     <div className="flex md:w-1/2 justify-center py-10 items-center bg-white max-lg:w-full max-lg:h-screen">
       <Formik

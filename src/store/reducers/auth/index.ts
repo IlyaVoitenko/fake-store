@@ -19,6 +19,10 @@ export const authSlice = createSlice({
     setIsAddedNewUser: (state, { payload }) => {
       state.isAddedNewUser = payload;
     },
+    setErrorMessage: (state, { payload }) => {
+      const { status, message } = payload as IErrorMessageAuthUser;
+      state.error = { status, message };
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(getAuthTokenThunk.fulfilled, (state, { payload }) => {
@@ -54,6 +58,6 @@ export const authSlice = createSlice({
 export const { tokenSelector, errorMessageSelector, isAddedNewUserSelector } =
   authSlice.selectors;
 
-export const { setIsAddedNewUser } = authSlice.actions;
+export const { setIsAddedNewUser, setErrorMessage } = authSlice.actions;
 
 export default authSlice.reducer;
