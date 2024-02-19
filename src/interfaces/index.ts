@@ -1,7 +1,7 @@
 import { Stripe, StripeElements } from "@stripe/stripe-js";
 import { SetStateAction } from "react";
 
-export interface Product {
+export interface IProduct {
   category: string;
   description: string;
   id: number | string;
@@ -10,11 +10,11 @@ export interface Product {
   rating: { rate: number; count: number };
   title: string;
 }
-export interface ProductsSliceInit {
-  listProducts: Product[];
-  product: Product;
+export interface IProductsSliceInit {
+  listProducts: IProduct[];
+  product: IProduct;
 }
-export interface User {
+export interface IUser {
   id?: number;
   email: string;
   username: string;
@@ -35,24 +35,24 @@ export interface User {
   };
   phone?: string;
 }
-export interface errorMessageAuthUser {
+export interface IErrorMessageAuthUser {
   status: number | null;
   message: string | null;
 }
 export interface AuthSliceInit {
-  error: errorMessageAuthUser;
+  error: IErrorMessageAuthUser;
   token: string | null;
-  user: User | null;
+  user: IUser | null;
   isAddedNewUser: boolean;
 }
-export interface LoadingSliceInit {
+export interface ILoadingSliceInit {
   loading: boolean;
 }
-export interface FormLoginInit {
+export interface IFormLoginInit {
   username: string;
   password: string;
 }
-export interface FormRegisterInit extends FormLoginInit {
+export interface IFormRegisterInit extends IFormLoginInit {
   firstName: string;
   lastName: string;
   email: string;

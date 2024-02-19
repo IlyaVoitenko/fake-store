@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { Product } from "../../interfaces";
+import { IProduct } from "../../interfaces";
 import PaginationDots from "./PaginationDots";
 import ListProducts from "../../components/ListProducts";
 
 interface Props {
-  arr: Product[];
+  arr: IProduct[];
 }
 
 const Pagination = ({ arr }: Props) => {

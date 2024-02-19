@@ -1,13 +1,13 @@
 import { NavigateFunction } from "react-router-dom";
 import {
-  FormRegisterInit,
+  IFormRegisterInit,
   validateFunck,
-  FormLoginInit,
+  IFormLoginInit,
   StripeType,
   ElementsType,
   IMessagePayment,
   IsProcessing,
-  Product,
+  IProduct,
 } from "../interfaces";
 import { AppDispatch } from "../store";
 import { getAuthTokenThunk, createUserThunk } from "../store/thunk";
@@ -15,7 +15,7 @@ import { FormEvent } from "react";
 import axios from "axios";
 
 export const handleSubmitRegisterForm = (
-  values: FormRegisterInit,
+  values: IFormRegisterInit,
   dispatch: AppDispatch,
   isAddedNewUser: boolean,
   navigate: NavigateFunction
@@ -24,7 +24,7 @@ export const handleSubmitRegisterForm = (
   dispatch(createUserThunk({ ...values }));
 };
 export const handleSubmitLoginForm = (
-  values: FormLoginInit,
+  values: IFormLoginInit,
   dispatch: AppDispatch
 ) => {
   const { username, password } = values;
@@ -96,7 +96,7 @@ export const handleSubmit = async (
 };
 
 export const getSecretClient = async (
-  product: Product,
+  product: IProduct,
   navigate: NavigateFunction
 ) => {
   try {

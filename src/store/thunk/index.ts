@@ -7,14 +7,14 @@ import {
   getUserById,
 } from "../../API";
 import {
-  Product,
-  FormLoginInit,
+  IProduct,
+  IFormLoginInit,
   AuthSliceInit,
-  FormRegisterInit,
-  User,
+  IFormRegisterInit,
+  IUser,
 } from "../../interfaces";
 
-export const getProductsThunk = createAsyncThunk<Product[]>(
+export const getProductsThunk = createAsyncThunk<IProduct[]>(
   "products/getProductsThunk",
   async (_, { rejectWithValue }) => {
     try {
@@ -26,7 +26,7 @@ export const getProductsThunk = createAsyncThunk<Product[]>(
   }
 );
 
-export const getProductByIdThunk = createAsyncThunk<Product, number>(
+export const getProductByIdThunk = createAsyncThunk<IProduct, number>(
   "products/getProductByIdThunk",
   async (id, { rejectWithValue }) => {
     try {
@@ -38,19 +38,19 @@ export const getProductByIdThunk = createAsyncThunk<Product, number>(
   }
 );
 
-export const getAuthTokenThunk = createAsyncThunk<AuthSliceInit, FormLoginInit>(
-  "auth/getAuthTokenThunk",
-  async (body, { rejectWithValue }) => {
-    try {
-      const data = await getTokenUser(body);
-      return data;
-    } catch (error) {
-      return rejectWithValue(error);
-    }
+export const getAuthTokenThunk = createAsyncThunk<
+  AuthSliceInit,
+  IFormLoginInit
+>("auth/getAuthTokenThunk", async (body, { rejectWithValue }) => {
+  try {
+    const data = await getTokenUser(body);
+    return data;
+  } catch (error) {
+    return rejectWithValue(error);
   }
-);
+});
 
-export const createUserThunk = createAsyncThunk<User, FormRegisterInit>(
+export const createUserThunk = createAsyncThunk<IUser, IFormRegisterInit>(
   "auth/createUserThunk",
   async (newUserData, { rejectWithValue }) => {
     try {

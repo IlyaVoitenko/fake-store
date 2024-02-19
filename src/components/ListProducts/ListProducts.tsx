@@ -1,8 +1,8 @@
 import ItemProduct from "../ItemProduct";
-import { Product } from "../../interfaces";
+import { IProduct } from "../../interfaces";
 
 interface Props {
-  arr: Product[];
+  arr: IProduct[];
 }
 
 const ListProducts = ({ arr }: Props) => {

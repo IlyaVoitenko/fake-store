@@ -1,12 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { LoadingSliceInit } from "../../../interfaces";
+import { ILoadingSliceInit } from "../../../interfaces";
 import {
   getAuthTokenThunk,
   getProductsThunk,
   createUserThunk,
 } from "../../thunk";
 
-const initialState: LoadingSliceInit = {
+const initialState: ILoadingSliceInit = {
   loading: false,
 };
 

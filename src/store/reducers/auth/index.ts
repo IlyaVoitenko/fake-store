@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { AuthSliceInit, errorMessageAuthUser } from "../../../interfaces";
+import { AuthSliceInit, IErrorMessageAuthUser } from "../../../interfaces";
 import { getAuthTokenThunk, createUserThunk } from "../../thunk";
 
 const initialState: AuthSliceInit = {
@@ -27,7 +27,7 @@ export const authSlice = createSlice({
       state.isAddedNewUser = false;
     });
     builder.addCase(getAuthTokenThunk.rejected, (state, { payload }) => {
-      const { status, message } = payload as errorMessageAuthUser;
+      const { status, message } = payload as IErrorMessageAuthUser;
       state.error = { status, message };
       state.isAddedNewUser = false;
     });
@@ -40,7 +40,7 @@ export const authSlice = createSlice({
       state.isAddedNewUser = false;
     });
     builder.addCase(createUserThunk.rejected, (state, { payload }) => {
-      const { status, message } = payload as errorMessageAuthUser;
+      const { status, message } = payload as IErrorMessageAuthUser;
       state.error = { status, message };
       state.isAddedNewUser = false;
     });

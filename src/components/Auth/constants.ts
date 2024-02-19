@@ -1,13 +1,13 @@
-import { FormRegisterInit, FormLoginInit } from "../../interfaces";
+import { IFormRegisterInit, IFormLoginInit } from "../../interfaces";
 
-export const initialRegisterForm: FormRegisterInit = {
+export const initialRegisterForm: IFormRegisterInit = {
   firstName: "",
   lastName: "",
   username: "",
   email: "",
   password: "",
 };
-export const initialLoginInForm: FormLoginInit = {
+export const initialLoginInForm: IFormLoginInit = {
   username: "",
   password: "",
 };
